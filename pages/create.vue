@@ -6,6 +6,18 @@
 
 <script>
 export default {
+    head(){
+    return{
+      title:'Create an Event ',
+      meta:[
+        {
+          hid:'description',
+          name:'description',
+          content:'you can create new event in your neighborhood'
+        }
+      ]
+    }
+  }
 
 }
 </script>
