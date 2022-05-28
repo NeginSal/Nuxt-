@@ -12,6 +12,8 @@
 
 <script>
 import EventCard from "../components/EventCard.vue";
+import EventService from "../services/EventService";
+
 export default {
   components: {
     EventCard,
@@ -38,9 +40,9 @@ export default {
   //       });
   //     });
   // },
-  async asyncData({ $axios, error }) {
+  async asyncData({ error }) {
     try {
-      const { data } = await $axios.get("http://localhost:3000/events");
+      const { data } = await EventService.getEvents();
       return {
         events: data,
       };
