@@ -12,7 +12,7 @@
 
 <script>
 import EventCard from "../components/EventCard.vue";
-import EventService from "../services/EventService";
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -40,19 +40,34 @@ export default {
   //       });
   //     });
   // },
-  async asyncData({ error }) {
+
+  // async asyncData({ error }) {
+  //   try {
+  //     const { data } = await EventService.getEvents();
+  //     return {
+  //       events: data,
+  //     };
+  //   } catch (e) {
+  //     error({
+  //       statusCode: 503,
+  //       message: "Unable to fetch events at this time . Please try again.",
+  //     });
+  //   }
+  // },
+
+  async fetch({ store, error }) {
     try {
-      const { data } = await EventService.getEvents();
-      return {
-        events: data,
-      };
+      await store.dispatch("events/fetchEvents");
     } catch (e) {
       error({
         statusCode: 503,
-        message: "Unable to fetch events at this time . Please try again.",
+        message: "Unable to fetch events at this time. Please try again.",
       });
     }
   },
+  computed: mapState({
+    events: (state) => state.events.events,
+  }),
 };
 </script>
 
